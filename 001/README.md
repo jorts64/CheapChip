@@ -29,5 +29,7 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 ## HTML5
 
 * [Cronómetro](https://github.com/jorts64/CheapChip/blob/main/001/HTML5/cronometro.html)
+* [PlanoSCAD-vista de planta](http://www.jorts.net/cheapchip/001/PlanoSCAD%20-%20vista%20de%20planta.html)
+* [Cronómetro en funcionamiento](http://www.jorts.net/cheapchip/001/cronometro.html)
 
 
