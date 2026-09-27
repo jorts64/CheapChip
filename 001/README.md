@@ -5,7 +5,7 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 ## Micropython con S2 mini
 
-* [blink.py](https://github.com/jorts64/CheapChip/blob/main/001/blink.py)
+* [blink.py](https://github.com/jorts64/CheapChip/blob/main/001/MicroPython/blink.py)
 * [button.py](https://github.com/jorts64/CheapChip/blob/main/001/MicroPython/button.py)
 * [Thonny](https://thonny.org/)
 * [Tienda oficial Lolin en AliExpress](https://www.aliexpress.com/store/1331105)
