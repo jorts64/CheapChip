@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cronómetro</title>
+
+  <style>
+    #tiempo {
+      font-size: 40px;
+      margin: 20px;
+    }
+
+    button {
+      font-size: 18px;
+      margin: 5px;
+      padding: 8px 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="tiempo">00:00</div>
+
+  <button onclick="start()">START</button>
+  <button onclick="stop()">STOP</button>
+  <button onclick="reset()">RESET</button>
+
+  <script>
+    let segundos = 0;
+    let intervalo;
+
+    function mostrar() {
+      let minutos = Math.floor(segundos / 60);
+      let seg = segundos % 60;
+
+      document.getElementById("tiempo").textContent =
+        String(minutos).padStart(2, "0") + ":" +
+        String(seg).padStart(2, "0");
+    }
+
+    function start() {
+      intervalo = setInterval(() => {
+        segundos++;
+        mostrar();
+      }, 1000);
+    }
+
+    function stop() {
+      clearInterval(intervalo);
+    }
+
+    function reset() {
+      stop();
+      segundos = 0;
+      mostrar();
+    }
+  </script>
+
+</body>
+</html>

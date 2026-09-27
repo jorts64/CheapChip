@@ -26,4 +26,8 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 * [Diseño de piezas con OpenSCAD II (ObiJuan)](https://www.iearobotics.com/wiki/index.php?title=Dise%C3%B1o_de_piezas_con_OpenScad_II)
 
 
+## HTML5
+
+* [Cronómetro](https://github.com/jorts64/CheapChip/blob/main/001/HTML5/cronometro.html)
+
 
