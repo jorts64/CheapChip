@@ -5,9 +5,12 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 ## Micropython con S2 mini
 
-*[Thonny](https://thonny.org/)
-*[Tienda oficial Lolin en AliExpress](https://www.aliexpress.com/store/1331105)
-*[Firmware](https://github.com/wemos/micropython/releases/download/v1.24.1-1-g50c8864e7f/firmware-LOLIN_S2_MINI-v1.24.1-1-g50c8864e7.bin)
+* [blink.py](https://github.com/jorts64/CheapChip/blob/main/001/blink.py)
+* [button.py](https://github.com/jorts64/CheapChip/blob/main/001/MicroPython/button.py)
+* [Thonny](https://thonny.org/)
+* [Tienda oficial Lolin en AliExpress](https://www.aliexpress.com/store/1331105)
+* [Esquema del S2 mini](https://github.com/jorts64/CheapChip/blob/main/001/MicroPython/sch_s2_mini_v1.0.0.pdf)
+* [Curso de MicroPython (Luis Llamas)](https://www.luisllamas.es/micropython-sintaxis-basica/)
 
 ## MCP23017
 
