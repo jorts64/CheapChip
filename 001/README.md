@@ -48,4 +48,5 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 * [Memória del TR](http://www.jorts.net/treballs/TRs/AnaAndres.pdf)
 * [Vídeo de defensa del proyecto ante el tribunal](https://www.youtube.com/watch?v=Y_adGFaJ72U)
+* [Placa de prototipos Arduino UNO compatible con ESP32 D1 R32](https://es.aliexpress.com/item/4000342906497.html)
 
