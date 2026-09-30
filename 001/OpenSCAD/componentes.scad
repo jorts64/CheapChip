@@ -11,8 +11,8 @@
 
 module pata(r){
 	difference(){
-		cube([5,5,h]);
-		translate([2.5,2.5,0]) cylinder(h=h, r=r);
+		translate([-2.5,-2.5,0]) cube([5,5,h]);
+		cylinder(h=h, r=r); // agujero en (0,0)
 	}
 }
 

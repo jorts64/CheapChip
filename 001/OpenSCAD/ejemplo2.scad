@@ -13,7 +13,7 @@ union(){
 
 module pata(r){
 	difference(){
-		cube([5,5,10]);
-		translate([2.5,2.5,0]) cylinder(h=10, r=r);
+		translate([-2.5,-2.5,0]) cube([5,5,10]);
+		cylinder(h=10, r=r); // agujero en (0,0)
 	}
 }
