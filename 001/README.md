@@ -5,7 +5,11 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 [Versión Pantalla](http://www.jorts.net/cheapchip/001/CheapChip-001.pdf)
 
+[![](miniatura-001.png)](http://www.jorts.net/cheapchip/001/CheapChip-001.pdf)
+
 [Versión Folleto](http://www.jorts.net/cheapchip/001/CheapChip-001-folleto.pdf)
+
+[![](miniatura-001-folleto.png)](http://www.jorts.net/cheapchip/001/CheapChip-001-folleto.pdf)
 
 
 ## Micropython con S2 mini
