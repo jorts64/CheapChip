@@ -3,6 +3,10 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 # Número 1 Octubre 2026
 
+[Versión Pantalla](http://www.jorts.net/cheapchip/001/CheapChip-001.pdf)
+
+[Versión Folleto](http://www.jorts.net/cheapchip/001/CheapChip-001-folleto.pdf)
+
 
 ## Micropython con S2 mini
 
