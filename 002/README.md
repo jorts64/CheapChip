@@ -1,7 +1,7 @@
 # CheapChip
 Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
-# Número 1 Octubre 2026
+# Número 2 Noviembre 2026
 
 ## Micropython con S2 mini
 
@@ -10,6 +10,20 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 ## OpenSCAD
 
+* Ejemplo1.scad  
+* Ejemplo2.scad  
+* Ejemplo3.scad  
+* Pan-tilt-tapa.stl
+* [Parametric Cable Clip](https://www.thingiverse.com/thing:7145611)
+* [Mini Pan Tilt - Servo G9](https://www.thingiverse.com/thing:708819)
+* [Memória TR de Ana Andrés](http://www.jorts.net/treballs/TRs/AnaAndres.pdf)
+
+
+### Reconocimientos
+
+El archivo *Pan-tilt-tapa.stl* pertenece al diseño *Mini Pan Tilt - Servo G9* de **Fernando Bueno** y está publicado en Thingiverse (#708819) bajo licencia CC BY-SA.
+
+*Ejemplo3.scad* está basado en la modificación del diseño original de **Fernando Bueno** por **Ana Andrés**, que está disponible en la memória de su TR, compartida con licencia CC BY-NC 3.0
 
 
 
