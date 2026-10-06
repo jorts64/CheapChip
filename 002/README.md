@@ -5,8 +5,13 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 ## Micropython con S2 mini
 
+* SOS.py
+* SOSpasivo.py
 * [Firmware](https://github.com/wemos/micropython/releases/download/v1.24.1-1-g50c8864e7f/firmware-LOLIN_S2_MINI-v1.24.1-1-g50c8864e7.bin)
+* [PCB S2 mini Breakout en oshwlab.com](https://oshwlab.com/jorts64/project_bselkkzj)
+* Ficheros Gerber S2 mini Breakout
 
+Gerber_PCB_S2-mini-breakout_PCB_S2-mini-breakout_2026-10-06
 
 ## OpenSCAD
 
