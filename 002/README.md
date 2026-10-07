@@ -30,5 +30,11 @@ El archivo *Pan-tilt-tapa.stl* pertenece al diseño *Mini Pan Tilt - Servo G9* d
 
 *Ejemplo3.scad* está basado en la modificación del diseño original de **Fernando Bueno** por **Ana Andrés**, que está disponible en la memória de su TR, compartida con licencia CC BY-NC 3.0
 
+## HTML5
+
+* [Ejemplo: logo-svg](http://www.jorts.net/cheapchip/002/logo-svg.html)
+* [SVGEdit](http://www.jorts.net/svgedit)
+* [Inkscape](https://inkscape.org/)
+
 
 

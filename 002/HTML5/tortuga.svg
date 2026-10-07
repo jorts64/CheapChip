@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="50"
+     height="50"
+     viewBox="0 0 50 50">
+
+    <!-- Caparazón -->
+    <ellipse cx="25" cy="27"
+             rx="17" ry="13"
+             fill="#5aa85a"
+             stroke="#174d17"
+             stroke-width="2"/>
+
+    <!-- Cabeza -->
+    <circle cx="25" cy="10"
+            r="7"
+            fill="#70b970"
+            stroke="#174d17"
+            stroke-width="2"/>
+
+    <!-- Ojos -->
+    <circle cx="22" cy="8" r="1.5"/>
+    <circle cx="28" cy="8" r="1.5"/>
+
+    <!-- Patas -->
+    <ellipse cx="9" cy="22"
+             rx="6" ry="3"
+             fill="#70b970"
+             transform="rotate(-30 9 22)"/>
+
+    <ellipse cx="41" cy="22"
+             rx="6" ry="3"
+             fill="#70b970"
+             transform="rotate(30 41 22)"/>
+
+    <ellipse cx="12" cy="36"
+             rx="6" ry="3"
+             fill="#70b970"
+             transform="rotate(30 12 36)"/>
+
+    <ellipse cx="38" cy="36"
+             rx="6" ry="3"
+             fill="#70b970"
+             transform="rotate(-30 38 36)"/>
+</svg>

@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Logo + SVG</title>
+
+<style>
+    body {
+        font-family: sans-serif;
+        margin: 20px;
+    }
+
+    .controles {
+        margin-bottom: 10px;
+    }
+
+    #orden {
+        width: 600px;
+        padding: 7px;
+        font-family: monospace;
+        font-size: 15px;
+    }
+
+    button {
+        padding: 7px 14px;
+        margin-left: 5px;
+    }
+
+    #escenario {
+        display: block;
+        border: 1px solid #888;
+        background: white;
+    }
+
+    #historial {
+        width: 800px;
+        height: 110px;
+        margin-top: 10px;
+        box-sizing: border-box;
+        font-family: monospace;
+    }
+
+    .ayuda {
+        margin-top: 15px;
+        font-family: monospace;
+        line-height: 1.7;
+    }
+
+    kbd {
+        background: #eee;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 2px 5px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Logo + SVG</h1>
+
+<div class="controles">
+
+    <input id="orden"
+           type="text"
+           placeholder="Ej.: REPEAT 4 [FD 100 RT 90]"
+           autofocus>
+
+    <button id="ejecutar">
+        Ejecutar
+    </button>
+
+    <!--
+        Este input no se ve.
+        Lo utilizaremos cuando Logo ejecute LOAD.
+    -->
+    <input id="archivo"
+           type="file"
+           accept=".svg,image/svg+xml"
+           hidden>
+
+</div>
+
+
+<svg id="escenario"
+     width="800"
+     height="500"
+     viewBox="0 0 800 500">
+
+    <!--
+        Todo el dibujo de Logo se coloca aquí.
+    -->
+    <g id="dibujos"></g>
+
+
+    <!--
+        La tortuga es un SVG externo.
+        tortuga.svg debe estar en la misma carpeta.
+    -->
+    <g id="tortuga">
+
+        <image
+            href="tortuga.svg"
+            x="-25"
+            y="-25"
+            width="50"
+            height="50">
+        </image>
+
+    </g>
+
+</svg>
+
+
+<textarea id="historial"
+          readonly
+          placeholder="Órdenes ejecutadas..."></textarea>
+
+
+<div class="ayuda">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Comando</th>
+                <th>Descripción</th>
+                <th>Comando</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td><kbd>FD n</kbd></td>
+                <td>Avanza <em>n</em> pasos</td>
+
+                <td><kbd>BK n</kbd></td>
+                <td>Retrocede <em>n</em> pasos</td>
+            </tr>
+
+            <tr>
+                <td><kbd>RT n</kbd></td>
+                <td>Gira a la derecha <em>n</em> grados</td>
+
+                <td><kbd>LT n</kbd></td>
+                <td>Gira a la izquierda <em>n</em> grados</td>
+            </tr>
+
+            <tr>
+                <td><kbd>PU</kbd></td>
+                <td>Levanta el lápiz</td>
+
+                <td><kbd>PD</kbd></td>
+                <td>Baja el lápiz</td>
+            </tr>
+
+            <tr>
+                <td><kbd>HT</kbd></td>
+                <td>Oculta la tortuga</td>
+
+                <td><kbd>ST</kbd></td>
+                <td>Muestra la tortuga</td>
+            </tr>
+
+            <tr>
+                <td><kbd>HOME</kbd></td>
+                <td>Vuelve al centro</td>
+
+                <td><kbd>CS</kbd></td>
+                <td>Limpia la pantalla e historial</td>
+            </tr>
+
+            <tr>
+                <td><kbd>CL</kbd></td>
+                <td>Limpia el dibujo</td>
+
+                <td><kbd>SETPC color</kbd></td>
+                <td>Cambia el color del lápiz</td>
+            </tr>
+
+            <tr>
+                <td><kbd>CIRCLE r</kbd></td>
+                <td>Dibuja un círculo</td>
+
+                <td><kbd>OVEL rx ry</kbd></td>
+                <td>Dibuja una elipse</td>
+            </tr>
+
+            <tr>
+                <td><kbd>FILL</kbd></td>
+                <td>Rellena la última ruta</td>
+
+                <td><kbd>REPEAT n [...]</kbd></td>
+                <td>Repite un bloque <em>n</em> veces</td>
+            </tr>
+
+            <tr>
+                <td><kbd>SAVE</kbd></td>
+                <td>Guarda el dibujo como SVG</td>
+
+                <td><kbd>LOAD</kbd></td>
+                <td>Carga un archivo SVG</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+"use strict";
+
+
+/*
+ * ============================================================
+ *                         SVG
+ * ============================================================
+ */
+
+const svg =
+    document.getElementById("escenario");
+
+const dibujos =
+    document.getElementById("dibujos");
+
+const tortuga =
+    document.getElementById("tortuga");
+
+const entrada =
+    document.getElementById("orden");
+
+const boton =
+    document.getElementById("ejecutar");
+
+const historial =
+    document.getElementById("historial");
+
+const archivo =
+    document.getElementById("archivo");
+
+
+const ANCHO = 800;
+const ALTO  = 500;
+
+
+/*
+ * ============================================================
+ *                   ESTADO DE LA TORTUGA
+ * ============================================================
+ */
+
+const estado = {
+
+    x: ANCHO / 2,
+    y: ALTO / 2,
+
+    /*
+     * 0 grados = arriba
+     * 90       = derecha
+     * 180      = abajo
+     * 270      = izquierda
+     */
+    angulo: 0,
+
+    lapiz: true,
+
+    visible: true,
+
+    color: "black",
+
+    ruta: null,
+
+    rutaAbierta: false
+};
+
+
+/*
+ * ============================================================
+ *                     UTILIDADES SVG
+ * ============================================================
+ */
+
+function crearElemento(nombre, atributos) {
+
+    const elemento =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            nombre
+        );
+
+    for (const [clave, valor]
+         of Object.entries(atributos)) {
+
+        elemento.setAttribute(
+            clave,
+            valor
+        );
+    }
+
+    dibujos.appendChild(elemento);
+
+    return elemento;
+}
+
+
+/*
+ * Actualiza la posición y orientación de la tortuga.
+ */
+function actualizarTortuga() {
+
+    tortuga.setAttribute(
+        "transform",
+        `translate(${estado.x} ${estado.y})
+         rotate(${estado.angulo})`
+    );
+
+    tortuga.style.display =
+        estado.visible ? "block" : "none";
+}
+
+
+/*
+ * ============================================================
+ *                         RUTAS
+ * ============================================================
+ */
+
+function comenzarRuta() {
+
+    if (estado.rutaAbierta) {
+        return;
+    }
+
+    estado.ruta =
+        crearElemento("path", {
+
+            d:
+                `M ${estado.x} ${estado.y}`,
+
+            fill: "none",
+
+            stroke: estado.color,
+
+            "stroke-width": 2,
+
+            "stroke-linejoin": "round",
+
+            "stroke-linecap": "round"
+        });
+
+    estado.rutaAbierta = true;
+}
+
+
+function continuarRuta(x, y) {
+
+    if (!estado.rutaAbierta) {
+        comenzarRuta();
+    }
+
+    const dActual =
+        estado.ruta.getAttribute("d");
+
+    estado.ruta.setAttribute(
+        "d",
+        dActual + ` L ${x} ${y}`
+    );
+}
+
+
+function cerrarRuta() {
+
+    if (!estado.rutaAbierta) {
+        return;
+    }
+
+    estado.ruta.setAttribute(
+        "d",
+        estado.ruta.getAttribute("d") + " Z"
+    );
+
+    estado.rutaAbierta = false;
+
+    estado.ruta = null;
+}
+
+
+/*
+ * ============================================================
+ *                         MOVIMIENTO
+ * ============================================================
+ */
+
+function mover(distancia) {
+
+    const rad =
+        estado.angulo *
+        Math.PI / 180;
+
+
+    const nuevoX =
+        estado.x +
+        Math.sin(rad) * distancia;
+
+
+    const nuevoY =
+        estado.y -
+        Math.cos(rad) * distancia;
+
+
+    if (estado.lapiz) {
+
+        continuarRuta(
+            nuevoX,
+            nuevoY
+        );
+
+    } else {
+
+        cerrarRuta();
+    }
+
+
+    estado.x = nuevoX;
+    estado.y = nuevoY;
+
+    actualizarTortuga();
+}
+
+
+function FD(n) {
+    mover(Number(n));
+}
+
+
+function BK(n) {
+    mover(-Number(n));
+}
+
+
+function RT(n) {
+
+    estado.angulo += Number(n);
+
+    actualizarTortuga();
+}
+
+
+function LT(n) {
+
+    estado.angulo -= Number(n);
+
+    actualizarTortuga();
+}
+
+
+/*
+ * ============================================================
+ *                     LÁPIZ Y TORTUGA
+ * ============================================================
+ */
+
+function PU() {
+
+    cerrarRuta();
+
+    estado.lapiz = false;
+}
+
+
+function PD() {
+
+    estado.lapiz = true;
+}
+
+
+function HT() {
+
+    estado.visible = false;
+
+    actualizarTortuga();
+}
+
+
+function ST() {
+
+    estado.visible = true;
+
+    actualizarTortuga();
+}
+
+
+function HOME() {
+
+    cerrarRuta();
+
+    estado.x = ANCHO / 2;
+    estado.y = ALTO / 2;
+    estado.angulo = 0;
+
+    actualizarTortuga();
+}
+
+
+/*
+ * ============================================================
+ *                       PANTALLA
+ * ============================================================
+ */
+
+function CS() {
+
+    cerrarRuta();
+
+    dibujos.replaceChildren();
+
+    // Borra el historial de órdenes
+    historial.value = "";
+}
+
+
+function CL() {
+
+    cerrarRuta();
+
+    dibujos.replaceChildren();
+}
+
+/*
+ * ============================================================
+ *                       FIGURAS
+ * ============================================================
+ */
+
+function CIRCLE(r) {
+
+    cerrarRuta();
+
+    crearElemento("circle", {
+
+        cx: estado.x,
+        cy: estado.y,
+
+        r: Number(r),
+
+        fill: "none",
+
+        stroke: estado.color,
+
+        "stroke-width": 2
+    });
+}
+
+
+function OVEL(rx, ry) {
+
+    cerrarRuta();
+
+    crearElemento("ellipse", {
+
+        cx: estado.x,
+        cy: estado.y,
+
+        rx: Number(rx),
+        ry: Number(ry),
+
+        fill: "none",
+
+        stroke: estado.color,
+
+        "stroke-width": 2
+    });
+}
+
+
+/*
+ * ============================================================
+ *                       SETPC
+ * ============================================================
+ */
+
+function SETPC(color) {
+
+    /*
+     * Una ruta no puede continuar con dos colores.
+     * Por eso terminamos la ruta actual.
+     */
+    cerrarRuta();
+
+    estado.color = color;
+}
+
+
+/*
+ * ============================================================
+ *                         FILL
+ * ============================================================
+ */
+
+function FILL() {
+
+    cerrarRuta();
+
+    const rutas =
+        dibujos.querySelectorAll("path");
+
+    if (rutas.length > 0) {
+
+        const ruta =
+            rutas[rutas.length - 1];
+
+        ruta.setAttribute(
+            "fill",
+            estado.color
+        );
+    }
+}
+
+
+/*
+ * ============================================================
+ *                          SAVE
+ * ============================================================
+ *
+ * SAVE:
+ *
+ *   1. Terminamos cualquier ruta abierta.
+ *   2. Construimos un SVG independiente.
+ *   3. Lo convertimos en Blob.
+ *   4. Creamos un enlace temporal.
+ *   5. El navegador descarga el archivo.
+ */
+
+function SAVE() {
+
+    /*
+     * Es importante cerrar la ruta antes de guardar.
+     */
+    cerrarRuta();
+
+
+    /*
+     * Creamos un SVG nuevo.
+     *
+     * No utilizamos directamente "svg.outerHTML"
+     * porque eso también guardaría nuestra tortuga.
+     */
+    const documentoSVG =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg"
+        );
+
+
+    documentoSVG.setAttribute(
+        "xmlns",
+        "http://www.w3.org/2000/svg"
+    );
+
+    documentoSVG.setAttribute(
+        "width",
+        ANCHO
+    );
+
+    documentoSVG.setAttribute(
+        "height",
+        ALTO
+    );
+
+    documentoSVG.setAttribute(
+        "viewBox",
+        `0 0 ${ANCHO} ${ALTO}`
+    );
+
+
+    /*
+     * Copiamos el dibujo.
+     *
+     * cloneNode(true) hace una copia completa
+     * de todos los elementos hijos.
+     */
+    for (const elemento of dibujos.children) {
+
+        documentoSVG.appendChild(
+            elemento.cloneNode(true)
+        );
+    }
+
+
+    /*
+     * Serializamos el SVG.
+     *
+     * Es decir, convertimos el árbol DOM
+     * en texto XML.
+     */
+    const serializador =
+        new XMLSerializer();
+
+
+    const textoSVG =
+        serializador.serializeToString(
+            documentoSVG
+        );
+
+
+    /*
+     * Creamos un archivo en memoria.
+     */
+    const blob =
+        new Blob(
+            [textoSVG],
+            {
+                type: "image/svg+xml"
+            }
+        );
+
+
+    /*
+     * Creamos una URL temporal para ese archivo.
+     */
+    const url =
+        URL.createObjectURL(blob);
+
+
+    /*
+     * Creamos un enlace invisible.
+     */
+    const enlace =
+        document.createElement("a");
+
+    enlace.href = url;
+
+    enlace.download = "dibujo-logo.svg";
+
+
+    /*
+     * Simulamos un clic.
+     */
+    enlace.click();
+
+
+    /*
+     * Liberamos la URL temporal.
+     */
+    URL.revokeObjectURL(url);
+}
+
+
+/*
+ * ============================================================
+ *                          LOAD
+ * ============================================================
+ *
+ * LOAD:
+ *
+ *   1. Abre el selector de archivos.
+ *   2. El usuario escoge un SVG.
+ *   3. FileReader lo lee como texto.
+ *   4. DOMParser convierte el texto en XML.
+ *   5. Copiamos el contenido al grupo "dibujos".
+ */
+
+function LOAD() {
+
+    /*
+     * Abrimos el selector de archivos.
+     */
+    archivo.click();
+}
+
+
+/*
+ * ============================================================
+ *                ARCHIVO SELECCIONADO
+ * ============================================================
+ */
+
+archivo.addEventListener(
+    "change",
+    function() {
+
+        const fichero =
+            archivo.files[0];
+
+
+        if (!fichero) {
+            return;
+        }
+
+
+        /*
+         * Comprobamos que parece un SVG.
+         */
+        if (
+            fichero.type !== "image/svg+xml" &&
+            !fichero.name.toLowerCase().endsWith(".svg")
+        ) {
+
+            alert(
+                "Selecciona un archivo SVG."
+            );
+
+            archivo.value = "";
+
+            return;
+        }
+
+
+        const lector =
+            new FileReader();
+
+
+        lector.onload = function(event) {
+
+            try {
+
+                cargarSVG(
+                    event.target.result
+                );
+
+            } catch (error) {
+
+                historial.value +=
+                    "ERROR LOAD: " +
+                    error.message +
+                    "\n";
+            }
+        };
+
+
+        lector.onerror = function() {
+
+            historial.value +=
+                "ERROR: no se pudo leer el archivo.\n";
+        };
+
+
+        lector.readAsText(fichero);
+
+
+        /*
+         * Permite volver a seleccionar el mismo archivo
+         * posteriormente.
+         */
+        archivo.value = "";
+    }
+);
+
+
+/*
+ * ============================================================
+ *                      CARGAR SVG
+ * ============================================================
+ */
+
+function cargarSVG(texto) {
+
+    /*
+     * Convertimos el texto en un documento XML.
+     */
+    const parser =
+        new DOMParser();
+
+
+    const documento =
+        parser.parseFromString(
+            texto,
+            "image/svg+xml"
+        );
+
+
+    /*
+     * Detectamos errores de XML.
+     */
+    const error =
+        documento.querySelector(
+            "parsererror"
+        );
+
+
+    if (error) {
+
+        throw new Error(
+            "El archivo no contiene un SVG válido."
+        );
+    }
+
+
+    const svgCargado =
+        documento.documentElement;
+
+
+    if (
+        svgCargado.tagName.toLowerCase()
+        !== "svg"
+    ) {
+
+        throw new Error(
+            "El archivo no contiene un elemento SVG."
+        );
+    }
+
+
+    /*
+     * Eliminamos el dibujo actual.
+     */
+    cerrarRuta();
+
+    dibujos.replaceChildren();
+
+
+    /*
+     * Copiamos los elementos del SVG cargado.
+     *
+     * importNode() adapta los nodos del documento
+     * cargado al documento actual.
+     */
+    for (
+        const nodo of svgCargado.childNodes
+    ) {
+
+        const copia =
+            document.importNode(
+                nodo,
+                true
+            );
+
+        dibujos.appendChild(copia);
+    }
+
+
+    /*
+     * Volvemos a poner la tortuga encima
+     * del dibujo.
+     */
+    svg.appendChild(tortuga);
+
+
+    actualizarTortuga();
+
+
+    historial.value +=
+        "LOAD " +
+        "dibujo cargado\n";
+}
+
+
+/*
+ * ============================================================
+ *                       TOKENIZADOR
+ * ============================================================
+ */
+
+function tokenizar(texto) {
+
+    return texto
+        .replace(/\[/g, " [ ")
+        .replace(/\]/g, " ] ")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+}
+
+
+/*
+ * ============================================================
+ *                     INTÉRPRETE LOGO
+ * ============================================================
+ */
+
+function ejecutarTokens(tokens) {
+
+    let i = 0;
+
+
+    while (i < tokens.length) {
+
+        const comando =
+            tokens[i].toUpperCase();
+
+        i++;
+
+
+        switch (comando) {
+
+            case "CS":
+                CS();
+                break;
+
+
+            case "CL":
+                CL();
+                break;
+
+
+            case "HOME":
+                HOME();
+                break;
+
+
+            case "FD":
+                FD(tokens[i++]);
+                break;
+
+
+            case "BK":
+                BK(tokens[i++]);
+                break;
+
+
+            case "RT":
+                RT(tokens[i++]);
+                break;
+
+
+            case "LT":
+                LT(tokens[i++]);
+                break;
+
+
+            case "PU":
+                PU();
+                break;
+
+
+            case "PD":
+                PD();
+                break;
+
+
+            case "HT":
+                HT();
+                break;
+
+
+            case "ST":
+                ST();
+                break;
+
+
+            case "CIRCLE":
+                CIRCLE(tokens[i++]);
+                break;
+
+
+            case "OVEL":
+
+                OVEL(
+                    tokens[i++],
+                    tokens[i++]
+                );
+
+                break;
+
+
+            case "SETPC":
+                SETPC(tokens[i++]);
+                break;
+
+
+            case "FILL":
+                FILL();
+                break;
+
+
+            /*
+             * ------------------------------------------------
+             * SAVE
+             * ------------------------------------------------
+             */
+
+            case "SAVE":
+
+                SAVE();
+
+                break;
+
+
+            /*
+             * ------------------------------------------------
+             * LOAD
+             * ------------------------------------------------
+             */
+
+            case "LOAD":
+
+                LOAD();
+
+                /*
+                 * LOAD es asíncrono.
+                 * El usuario tendrá que seleccionar
+                 * el archivo y entonces continuará
+                 * el proceso.
+                 */
+
+                break;
+
+
+            /*
+             * ------------------------------------------------
+             * REPEAT
+             * ------------------------------------------------
+             */
+
+            case "REPEAT": {
+
+                const veces =
+                    Number(tokens[i++]);
+
+
+                if (tokens[i] !== "[") {
+
+                    throw new Error(
+                        "REPEAT necesita [ ... ]"
+                    );
+                }
+
+
+                i++;
+
+
+                const inicio = i;
+
+                let nivel = 1;
+
+
+                while (
+                    i < tokens.length &&
+                    nivel > 0
+                ) {
+
+                    if (tokens[i] === "[") {
+                        nivel++;
+                    }
+
+                    if (tokens[i] === "]") {
+                        nivel--;
+                    }
+
+                    i++;
+                }
+
+
+                if (nivel !== 0) {
+
+                    throw new Error(
+                        "Faltan corchetes ]"
+                    );
+                }
+
+
+                const fin = i - 1;
+
+
+                const bloque =
+                    tokens.slice(
+                        inicio,
+                        fin
+                    );
+
+
+                for (
+                    let n = 0;
+                    n < veces;
+                    n++
+                ) {
+
+                    ejecutarTokens(bloque);
+                }
+
+                break;
+            }
+
+
+            default:
+
+                throw new Error(
+                    "Comando desconocido: " +
+                    comando
+                );
+        }
+    }
+}
+
+
+/*
+ * ============================================================
+ *                    EJECUTAR UNA ORDEN
+ * ============================================================
+ */
+
+function ejecutar() {
+
+    const texto =
+        entrada.value.trim();
+
+
+    if (!texto) {
+        return;
+    }
+
+
+    try {
+
+        const tokens =
+            tokenizar(texto);
+
+
+        ejecutarTokens(tokens);
+
+
+        historial.value +=
+            texto + "\n";
+
+
+        entrada.value = "";
+
+        entrada.focus();
+
+    } catch (error) {
+
+        historial.value +=
+            "ERROR: " +
+            error.message +
+            "\n";
+    }
+}
+
+
+/*
+ * ENTER = ejecutar.
+ */
+
+entrada.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+            ejecutar();
+        }
+    }
+);
+
+
+boton.addEventListener(
+    "click",
+    ejecutar
+);
+
+
+/*
+ * Estado inicial.
+ */
+
+actualizarTortuga();
+
+</script>
+
+</body>
+</html>
+
