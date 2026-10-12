@@ -5,20 +5,20 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 ## Micropython con S2 mini
 
-* SOS.py
-* SOSpasivo.py
+* [SOS.py](https://github.com/jorts64/CheapChip/blob/main/002/MicroPython/SOS.py)
+* [SOSpasivo.py](https://github.com/jorts64/CheapChip/blob/main/002/MicroPython/SOSpasivo.py)
 * [Firmware](https://github.com/wemos/micropython/releases/download/v1.24.1-1-g50c8864e7f/firmware-LOLIN_S2_MINI-v1.24.1-1-g50c8864e7.bin)
 * [PCB S2 mini Breakout en oshwlab.com](https://oshwlab.com/jorts64/project_bselkkzj)
-* Ficheros Gerber S2 mini Breakout
+* [Ficheros Gerber S2 mini Breakout](https://github.com/jorts64/CheapChip/blob/main/002/MicroPython/Gerber_PCB_S2-mini-breakout_PCB_S2-mini-breakout_2026-10-06.zip)
 
 Gerber_PCB_S2-mini-breakout_PCB_S2-mini-breakout_2026-10-06
 
 ## OpenSCAD
 
-* Ejemplo1.scad  
-* Ejemplo2.scad  
-* Ejemplo3.scad  
-* Pan-tilt-tapa.stl
+* [Ejemplo1.scad](https://github.com/jorts64/CheapChip/blob/main/002/OpenSCAD/Ejemplo1.scad)
+* [Ejemplo2.scad](https://github.com/jorts64/CheapChip/blob/main/002/OpenSCAD/Ejemplo2.scad)
+* [Ejemplo3.scad](https://github.com/jorts64/CheapChip/blob/main/002/OpenSCAD/Ejemplo3.scad)
+* [Pan-tilt-tapa.stl](https://github.com/jorts64/CheapChip/blob/main/002/OpenSCAD/Pan-tilt-tapa.stl)
 * [Parametric Cable Clip](https://www.thingiverse.com/thing:7145611)
 * [Mini Pan Tilt - Servo G9](https://www.thingiverse.com/thing:708819)
 * [Memória TR de Ana Andrés](http://www.jorts.net/treballs/TRs/AnaAndres.pdf)
