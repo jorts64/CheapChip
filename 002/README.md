@@ -57,4 +57,10 @@ El archivo *Pan-tilt-tapa.stl* pertenece al diseño *Mini Pan Tilt - Servo G9* d
 * [Muestra de voz Espeak](https://espeak.sourceforge.net/samples.html)
 * [Muestras de voz de piper-TTs](https://rhasspy.github.io/piper-samples/#es_ES-carlfm-x_low)
 
+## Proyectos: cámara térmica
+
+* [Libro IoT amb D1 mini (ESP8266) i codi Arduino](http://www.jorts.net/ebooks/IoT_amb_D1_mini_(ESP8266)_i_codi_Arduino.pdf)
+* [GitHub del kit D1 mini: proyecto cámara térmica](https://github.com/jorts64/kit-D1-mini/tree/master/projectes/jorts/camera%20termica)
+
+
 
