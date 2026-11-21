@@ -25,7 +25,7 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 * [Orangepizero3_1.0.4_debian_bookworm_server_linux6.1.31.7z](https://drive.google.com/file/d/1TbX8cOKcc46j-uYhZz_m55-y1y9asdC0/view?usp=sharing)
 * [Balena etcher](https://etcher.balena.io/#download-etcher)
-* [Diseño OpenSCAD de una caja para nuestra OPiZ3]()
+* [Diseño OpenSCAD de una caja para nuestra OPiZ3](https://github.com/jorts64/CheapChip/tree/main/003/OPiZ3)
 
 ## HTML5
 
