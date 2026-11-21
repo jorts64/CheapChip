@@ -11,8 +11,6 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 * [PCB S2 mini Breakout en oshwlab.com](https://oshwlab.com/jorts64/project_bselkkzj)
 * [Ficheros Gerber S2 mini Breakout](https://github.com/jorts64/CheapChip/blob/main/002/MicroPython/Gerber_PCB_S2-mini-breakout_PCB_S2-mini-breakout_2026-10-06.zip)
 
-Gerber_PCB_S2-mini-breakout_PCB_S2-mini-breakout_2026-10-06
-
 ## OpenSCAD
 
 * [Ejemplo1.scad](https://github.com/jorts64/CheapChip/blob/main/002/OpenSCAD/Ejemplo1.scad)
