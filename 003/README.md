@@ -36,6 +36,7 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 ## Taller: Medición de intensidades con GND común
 
+* [Referencia librería Arduino INA219](https://learn.adafruit.com/adafruit-ina219-current-sensor-breakout/library-reference)
 * [Datasheets de los sensores INA219, INA226 y ACS712](https://github.com/jorts64/CheapChip/tree/main/003/Taller)
 *  [Ejemplo uso ACS712 (Luis Llamas)](https://www.luisllamas.es/arduino-intensidad-consumo-electrico-acs712/)
 
