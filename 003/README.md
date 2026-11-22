@@ -22,10 +22,10 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 ## Orange Pi Zero 3: Cómo crear tu propio servidor Wiki para tu Intranet
 
-
 * [Orangepizero3_1.0.4_debian_bookworm_server_linux6.1.31.7z](https://drive.google.com/file/d/1TbX8cOKcc46j-uYhZz_m55-y1y9asdC0/view?usp=sharing)
 * [Balena etcher](https://etcher.balena.io/#download-etcher)
 * [Diseño OpenSCAD de una caja para nuestra OPiZ3](https://github.com/jorts64/CheapChip/tree/main/003/OPiZ3)
+
 
 ## HTML5
 
@@ -33,6 +33,10 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 * [ViewSTL](https://www.viewstl.com/plugin/)
 * [nas.tgz](https://www.jorts.net/cheapchip/003/OPiZ3/nas.tgz)
 
+
+## Taller: Medición de intensidades con GND común
+
+* [Datasheets de los sensores INA219, INA226 y ACS712](https://github.com/jorts64/CheapChip/tree/main/003/Taller)
 
 ## Terminal Linux
 
