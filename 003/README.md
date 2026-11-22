@@ -7,7 +7,7 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 * [sht30-Example.py](https://github.com/jorts64/CheapChip/blob/main/003/MicroPython/sht30-Example.py)
 * [sht30-OLED.py](https://github.com/jorts64/CheapChip/blob/main/003/MicroPython/sht30-OLED.py)
-* [sht30.py]((https://github.com/jorts64/CheapChip/blob/main/003/MicroPython/sht30.py))
+* [sht30.py](https://github.com/jorts64/CheapChip/blob/main/003/MicroPython/sht30.py)
 * [Datasheet del SHT30](https://github.com/jorts64/MicroPythonLibrariesS2mini/blob/main/sht30/Datasheet_SHT3x_DIS.pdf)
 * [Librería sht30.py](https://github.com/jorts64/MicroPythonLibrariesS2mini/tree/main/sht30)
 * [Descripción del módulo sht31](https://microcontrollerslab.com/sht31-temperature-humidity-sensor-arduino/)
@@ -37,6 +37,7 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 ## Taller: Medición de intensidades con GND común
 
 * [Datasheets de los sensores INA219, INA226 y ACS712](https://github.com/jorts64/CheapChip/tree/main/003/Taller)
+*  [Ejemplo uso ACS712 (Luis Llamas)](https://www.luisllamas.es/arduino-intensidad-consumo-electrico-acs712/)
 
 ## Terminal Linux
 
