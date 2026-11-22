@@ -29,9 +29,9 @@ Revista de Electrónica, Diseño 3D, Micropython, Arduino, Orange Pi, HTML5...
 
 ## HTML5
 
-* [Ejemplo: logo-svg](http://www.jorts.net/cheapchip/002/logo-svg.html)
-* [SVGEdit](http://www.jorts.net/svgedit)
-* [Inkscape](https://inkscape.org/)
+* [ViewerJS](https://viewerjs.org/)
+* [ViewSTL](https://www.viewstl.com/plugin/)
+* [nas.tgz](https://www.jorts.net/cheapchip/003/OPiZ3/nas.tgz)
 
 
 ## Terminal Linux
